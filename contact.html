@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Pot - Contact Support</title>
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans relative">
+    <!-- Warm workspace table background backdrop -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-22 dark:opacity-12" style="background-image: url('https://images.unsplash.com/photo-1544982503-9f984c14501a?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+
+    <div id="navbar" class="relative z-10"></div>
+
+    <main class="flex-1 max-w-2xl mx-auto w-full px-4 py-8 sm:px-6 lg:py-16 relative z-10">
+      <!-- Vertical floating borderless background emojis -->
+      <div class="hidden xl:block absolute -left-20 top-[15%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 11s;">✉️</div>
+      <div class="hidden xl:block absolute -right-20 top-[35%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 19s; animation-direction: reverse;">🍲</div>
+      <div class="hidden xl:block absolute -left-24 top-[65%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 15s;">🥕</div>
+      <div class="hidden xl:block absolute -right-24 top-[85%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 24s; animation-direction: reverse;">🍊</div>
+      
+      <!-- Card wrapper -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-10 relative overflow-hidden font-sans">
+        <!-- Thin modern status accent line -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800 dark:bg-amber-400"></div>
+
+        <div class="mb-8 text-center sm:text-left flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <span class="text-[10px] font-bold tracking-widest uppercase text-slate-800 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200 dark:text-amber-350 dark:bg-slate-900/40 dark:border-amber-900/45">
+              ✉️ Contact Desk
+            </span>
+            <h1 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight text-slate-850 dark:text-slate-100 mt-3.5 flex items-center gap-2">
+              Get in touch with us <span class="spinning-carrot text-lg">🍲</span>
+            </h1>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              Have questions about Daily Pot, the Smart Pantry Manager, or integration possibilities? We are here to help!
+            </p>
+          </div>
+        </div>
+
+        <!-- Direct Social & Personal Contact Channels -->
+        <div class="space-y-8 animate-fade-in">
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-350 leading-relaxed font-sans">
+            We are dedicated to supporting your pantry and culinary workspace. You can skip the form queues and connect with us directly via our official, high-priority touchpoints listed below.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Email Box -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 flex flex-col justify-between gap-4">
+              <div class="space-y-1.5">
+                <span class="block text-2xl">✉️</span>
+                <h3 class="font-display font-bold text-sm text-slate-900 dark:text-amber-300">Direct Email</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Shoot us a quick email message for features, feedback, or custom integrations.
+                </p>
+              </div>
+              <a 
+                href="mailto:alex.mns04@gmail.com"
+                class="ink-stamped-btn px-4 py-2.5 bg-slate-950 text-white dark:bg-amber-400 dark:text-slate-950 text-xs font-bold rounded-xl text-center self-start"
+              >
+                alex.mns04@gmail.com ➔
+              </a>
+            </div>
+
+            <!-- Phone Box -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 flex flex-col justify-between gap-4">
+              <div class="space-y-1.5">
+                <span class="block text-2xl">📞</span>
+                <h3 class="font-display font-bold text-sm text-slate-900 dark:text-amber-300">Support Phone</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Call or send a message directly to get instant coordination and cooking safety inquiries.
+                </p>
+              </div>
+              <a 
+                href="tel:078775676"
+                class="ink-stamped-btn px-4 py-2.5 bg-slate-950 text-white dark:bg-amber-400 dark:text-slate-950 text-xs font-bold rounded-xl text-center self-start"
+              >
+                078775676 ➔
+              </a>
+            </div>
+
+          </div>
+
+          <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex justify-center">
+            <a 
+              href="index.html" 
+              class="ink-stamped-btn px-6 py-3 bg-slate-900 text-white hover:bg-slate-950 dark:bg-amber-400 dark:text-slate-950 text-xs font-black rounded-xl"
+            >
+              ⬅ Return to Kitchen Pantry
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer" class="relative z-10"></div>
+
+    <script type="module" src="/src/contact.ts"></script>
+  </body>
+</html>

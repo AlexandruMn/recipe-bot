@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - Daily Pot</title>
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <!-- Navbar Container -->
+    <div id="navbar"></div>
+
+    <!-- Main Content Container (404 Error Layout) -->
+    <main class="flex-1 max-w-2xl mx-auto w-full px-6 py-16 sm:py-24 flex flex-col items-center justify-center text-center">
+      <!-- High Fidelity Visual Graphic -->
+      <div id="404-graphic" class="relative mb-8 select-none">
+        <span class="block text-8xl filter drop-shadow-md animate-bounce">🍳</span>
+        <div class="absolute -right-3 bottom-0 text-4xl">💭</div>
+        <div class="absolute -left-4 -top-3 text-3xl">❓</div>
+      </div>
+
+      <!-- Error Badge -->
+      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-extrabold bg-red-100 text-red-650 border border-red-200/50 uppercase tracking-widest font-mono mb-4 dark:bg-red-950/40 dark:text-red-300 dark:border-red-950">
+        Error Code 404
+      </span>
+
+      <!-- Heading -->
+      <h1 class="font-display font-black text-3xl sm:text-4xl tracking-tight text-slate-900 mb-4">
+        Culinary Path Displaced!
+      </h1>
+      <p class="text-sm text-slate-400 max-w-md leading-relaxed mb-10">
+        It looks like this page was removed from the pantry or never existed in the recipe index. Let's get your cooking adventure back on track!
+      </p>
+
+      <!-- Action Portal Bento Card -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs w-full mb-8 text-left space-y-4">
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">Where would you like to go?</h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Back Home -->
+          <a href="index.html" class="flex items-center gap-3 p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-emerald-50/20 hover:border-emerald-500 transition group cursor-pointer">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500 text-white flex items-center justify-center text-lg shadow-sm">
+              🏠
+            </div>
+            <div>
+              <span class="block text-xs font-extrabold text-slate-800 group-hover:text-emerald-700 transition">Go Back Home</span>
+              <span class="block text-[10px] text-slate-400">Access your local pantry stock</span>
+            </div>
+          </a>
+
+          <!-- Browse Pantry -->
+          <a href="ingredients.html" class="flex items-center gap-3 p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-emerald-50/20 hover:border-emerald-500 transition group cursor-pointer">
+            <div class="w-10 h-10 rounded-lg bg-teal-500 text-white flex items-center justify-center text-lg shadow-sm">
+              🥦
+            </div>
+            <div>
+              <span class="block text-xs font-extrabold text-slate-800 group-hover:text-emerald-700 transition">Browse Pantry</span>
+              <span class="block text-[10px] text-slate-400">Discover pantry components</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Inline quick lookup search bar -->
+        <div class="pt-4 border-t border-slate-100">
+          <label class="block text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-2">Or, Search for Recipes directly:</label>
+          <form id="search-404-form" action="search.html" method="GET" class="relative">
+            <input 
+              type="text" 
+              name="query" 
+              placeholder="What are you craving? (e.g. Pasta, Sautéed, Pancakes)" 
+              class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-xs text-slate-800 placeholder-slate-400 transition"
+              required
+            />
+            <button type="submit" class="absolute left-3.5 top-3.5 text-slate-400 hover:text-emerald-500 transition cursor-pointer">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- General Return Link -->
+      <a href="index.html" class="text-xs font-bold text-emerald-500 hover:text-emerald-600 flex items-center gap-1 transition">
+        &larr; Return to Dashboard Homepage
+      </a>
+    </main>
+
+    <!-- Footer Content -->
+    <div id="footer"></div>
+
+    <script type="module" src="/src/404.ts"></script>
+  </body>
+</html>

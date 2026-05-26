@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Pot - Recipe Finder</title>
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans relative">
+    <!-- Chalkboard Menu Background Image Backdrop -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-20 dark:opacity-10" style="background-image: url('https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+
+    <!-- Navbar Container -->
+    <div id="navbar" class="relative z-10"></div>
+
+    <!-- Main Section -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 py-8 sm:px-6 relative z-10">
+      <!-- Vertical floating borderless background emojis -->
+      <div class="hidden xl:block absolute -left-16 top-[8%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 13s;">🍲</div>
+      <div class="hidden xl:block absolute -right-16 top-[22%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 17s; animation-direction: reverse;">🍍</div>
+      <div class="hidden xl:block absolute -left-20 top-[48%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 15s;">🥭</div>
+      <div class="hidden xl:block absolute -right-20 top-[68%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 21s; animation-direction: reverse;">🥘</div>
+      <div class="hidden xl:block absolute -left-16 top-[88%] spinning-carrot text-4xl pointer-events-none select-none" style="animation-duration: 18s;">🥑</div>
+
+      <!-- Title Header Block -->
+      <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div>
+            <h1 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight text-slate-850 dark:text-slate-100 flex items-center gap-2">
+              Spoonacular Matching Results <span class="spinning-carrot text-lg sm:text-xl">🥗</span>
+            </h1>
+            <p class="text-xs text-slate-400 mt-1">
+              Analyzing items from your local pantry list to fetch matching culinary ideas from Spoonacular APIs.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pagination Page Size & Filters Button -->
+        <div class="flex items-center gap-3 shrink-0 flex-wrap">
+          <!-- Page Limit Selector -->
+          <div class="inline-flex items-center gap-1 border border-slate-200 dark:border-slate-800 rounded-xl p-1 bg-white dark:bg-slate-900 shadow-3xs shrink-0 select-none">
+            <span class="text-[10px] uppercase font-extrabold px-1.5 text-slate-400 font-mono tracking-wider">Show:</span>
+            <button id="limit-10-btn" class="px-3 py-1 text-xs font-black rounded-lg transition cursor-pointer text-slate-600 dark:text-slate-350">
+              10
+            </button>
+            <button id="limit-20-btn" class="px-3 py-1 text-xs font-black rounded-lg transition cursor-pointer text-slate-600 dark:text-slate-350">
+              20
+            </button>
+            <button id="limit-30-btn" class="px-3 py-1 text-xs font-black rounded-lg transition cursor-pointer text-slate-600 dark:text-slate-350">
+              30
+            </button>
+          </div>
+
+          <!-- Filters Toggle Button -->
+          <button id="filters-toggle-btn" class="px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl cursor-pointer shadow-3xs flex items-center gap-2 transition select-none">
+            <span>⚙️ Filters</span>
+            <span id="active-filters-count" class="hidden bg-slate-900 text-white dark:bg-amber-400 dark:text-slate-900 font-mono text-[9px] w-4.5 h-4.5 rounded-full items-center justify-center font-bold">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Recipe Name search block -->
+      <div class="mb-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 sm:p-5 rounded-2xl shadow-3xs flex flex-col md:flex-row gap-3">
+        <div class="relative flex-1">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 text-sm">🔍</span>
+          <input 
+            type="text" 
+            id="recipe-name-search-input" 
+            placeholder="Search recipes by name or keywords (e.g. Tomato Pasta, Salmon, Chocolate Cake...)" 
+            class="w-full pl-9 pr-4 py-3 bg-slate-50 border border-slate-200 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-950 dark:focus:ring-amber-400 text-xs sm:text-sm text-slate-800 transition shadow-inner"
+          />
+        </div>
+        <div class="flex gap-2">
+          <button 
+            id="recipe-name-search-btn" 
+            class="px-5 py-3 bg-slate-900 hover:bg-slate-950 dark:bg-amber-400 dark:hover:bg-amber-500 text-white dark:text-slate-950 font-black text-xs sm:text-sm rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5 select-none shrink-0 shadow-3xs hover:scale-101 active:scale-95"
+          >
+            Search Name
+          </button>
+          <button 
+            id="recipe-name-clear-btn" 
+            class="hidden px-4 py-3 bg-white hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-bold text-xs sm:text-sm rounded-xl transition cursor-pointer flex items-center justify-center gap-1 select-none shrink-0"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Collapsible Filters Drawer Shelf -->
+      <div id="filters-shelf" class="hidden p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-3xs flex flex-wrap gap-6 items-center animate-fade-in mb-8">
+        <div class="flex items-center gap-1.5 text-xs font-black text-slate-400 uppercase tracking-wider select-none">
+          <span>🎯 Select Filters:</span>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+          <!-- Prep Time Under 30 mins -->
+          <label class="cursor-pointer select-none">
+            <input type="checkbox" id="filter-time" class="sr-only peer" />
+            <div class="filter-btn">
+              ⏰ Under 30 mins
+            </div>
+          </label>
+
+          <!-- Prep Time Around 1 hour -->
+          <label class="cursor-pointer select-none">
+            <input type="checkbox" id="filter-time-around1h" class="sr-only peer" />
+            <div class="filter-btn">
+              ⌛ Around 1 hour
+            </div>
+          </label>
+
+          <!-- Prep Time 2 hours or more -->
+          <label class="cursor-pointer select-none">
+            <input type="checkbox" id="filter-time-2h" class="sr-only peer" />
+            <div class="filter-btn">
+              ⏳ 2 hours or more
+            </div>
+          </label>
+
+          <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 self-center hidden lg:block"></div>
+
+          <!-- Air Fryer Toggle -->
+          <label class="cursor-pointer select-none">
+            <input type="checkbox" id="filter-airfryer" class="sr-only peer" />
+            <div class="filter-btn">
+              💨 Air Fryer
+            </div>
+          </label>
+
+          <!-- Oven Method Toggle -->
+          <label class="cursor-pointer select-none">
+            <input type="checkbox" id="filter-oven-method" class="sr-only peer" />
+            <div class="filter-btn">
+              🔥 Oven
+            </div>
+          </label>
+
+          <!-- Stovetop Toggle -->
+          <label class="cursor-pointer select-none">
+            <input type="checkbox" id="filter-stovetop" class="sr-only peer" />
+            <div class="filter-btn">
+              🍳 Stovetop
+            </div>
+          </label>
+
+          <!-- Slow Cooker Toggle -->
+          <label class="cursor-pointer select-none">
+            <input type="checkbox" id="filter-slow-cooker" class="sr-only peer" />
+            <div class="filter-btn">
+              🍲 Slow Cooker
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- General Errors/Warning Alerts Slot -->
+      <div id="global-alert-container" class="hidden mb-6"></div>
+
+      <!-- Pantry Summary Header Info -->
+      <div class="bg-slate-100/50 p-4 border border-slate-200 rounded-xl mb-8 flex justify-between items-center text-xs flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-slate-400 uppercase tracking-wider">Search Ingredients:</span>
+          <span id="search-ingredients-summary" class="text-slate-700 italic font-medium">None configured</span>
+        </div>
+        <a href="index.html" class="text-xs font-bold text-slate-850 hover:text-slate-950 dark:text-amber-150 dark:hover:text-amber-100 flex items-center gap-1 transition">
+          Edit Pantry ➔
+        </a>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading" class="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm mb-8">
+        <div class="relative w-12 h-12 mb-4">
+          <div class="absolute w-12 h-12 rounded-full border-4 border-slate-200/50 animate-spin border-t-slate-800 dark:border-amber-950/40 dark:border-t-amber-400"></div>
+        </div>
+        <p class="font-bold text-slate-800">Loading recipe options...</p>
+        <p class="text-xs text-slate-400 mt-1 max-w-xs text-center px-4 leading-relaxed">Contacting Spoonacular endpoints & generating ingredient substitution options. Please hold.</p>
+      </div>
+
+      <!-- Empty State -->
+      <div id="no-recipes-found" class="hidden flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm mb-8">
+        <span class="text-4xl mb-4">🍲</span>
+        <h3 class="font-display font-black text-lg text-slate-800">No matching recipes found</h3>
+        <p class="text-sm text-slate-500 max-w-sm text-center px-4 mt-1 leading-relaxed" id="no-recipes-submsg">
+          Try expanding your pantry array with more base ingredients like butter, flour, salt, garlic, or vegetables!
+        </p>
+        <div class="mt-6">
+          <a href="index.html" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-950 text-white dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-slate-900 text-sm font-bold rounded-xl transition cursor-pointer">
+            Add Pantry Goods
+          </a>
+        </div>
+      </div>
+
+      <!-- Recipes Grid -->
+      <div id="recipes-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamically drawn cards here -->
+      </div>
+
+      <!-- Pagination Controls -->
+      <div id="pagination-controls" class="hidden flex justify-center items-center gap-2 mt-12 py-6 border-t border-slate-200 dark:border-slate-800 select-none flex-wrap">
+        <!-- Dynamically drawn page numbers and navigation -->
+      </div>
+    </main>
+
+    <!-- Recipe Detail Modal Drawer -->
+    <div id="recipe-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 transition backdrop-blur-xs">
+      <div class="bg-white rounded-2xl border border-slate-200 max-w-2xl w-full max-h-[85vh] overflow-y-auto flex flex-col shadow-2xl relative font-sans text-xs">
+        <!-- Header Image area -->
+        <div class="relative h-60 w-full shrink-0">
+          <img id="modal-img" src="" alt="Recipe image" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent"></div>
+          <button id="modal-close-btn" class="absolute top-4 right-4 bg-slate-950/60 text-white rounded-full p-2.5 hover:bg-slate-900 transition cursor-pointer" aria-label="Close dialog">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+          
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <h2 id="modal-title" class="font-display font-extrabold text-xl sm:text-2xl leading-tight"></h2>
+            <!-- Ready time, Servings -->
+            <div class="flex gap-4 text-xs font-bold text-amber-205 mt-2">
+              <span id="modal-prep" class="flex items-center gap-1">⏰ Under 30m</span>
+              <span id="modal-servings" class="flex items-center gap-1">🥣 4 Servings</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrollable details details -->
+        <div class="p-6 overflow-y-auto">
+          <!-- Substitution alerts block (hidden by default) -->
+          <div id="modal-substitutes-banner" class="hidden bg-amber-50 border border-amber-300 text-amber-950 dark:bg-amber-950/20 dark:border-amber-900/50 dark:text-amber-200 rounded-xl p-4 text-xs leading-relaxed space-y-1.5 mb-6 shadow-3xs">
+            <div class="font-bold flex items-center gap-1.5">
+              <span>⚠️ Quality-Reducing Substitutions Triggered:</span>
+            </div>
+            <ul id="modal-substitutes-list" class="list-disc pl-4 space-y-1 font-medium"></ul>
+          </div>
+
+          <!-- Recipe summary and source link -->
+          <div class="text-xs text-slate-500 mb-6 leading-relaxed" id="modal-desc"></div>
+
+          <!-- Two Column Lists -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-slate-200">
+            <!-- Ingredients -->
+            <div>
+              <h3 class="font-display font-black text-slate-850 mb-3 text-xs uppercase tracking-wider text-slate-705 dark:text-amber-100 font-bold">Ingredients Needed</h3>
+              <ul id="modal-ingredients-list" class="space-y-2 text-xs text-slate-600 list-none font-medium">
+                <!-- list of extended ingredients -->
+              </ul>
+            </div>
+
+            <!-- Steps Instructions -->
+            <div>
+              <h3 class="font-display font-black text-slate-850 mb-3 text-xs uppercase tracking-wider text-slate-705 dark:text-amber-100 font-bold">Preparation Steps</h3>
+              <ol id="modal-steps-list" class="space-y-3.5 text-xs text-slate-600 list-decimal pl-4 font-medium leading-relaxed font-bold">
+                <!-- steps -->
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer tools -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900 rounded-b-2xl">
+          <a id="modal-view-original" href="#" target="_blank" class="text-xs text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-amber-100 font-bold underline transition select-none">
+            View Source Original website
+          </a>
+          <button id="modal-fav-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-705 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-205 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-bold transition cursor-pointer">
+            <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            Add to Favorites
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer" class="relative z-10"></div>
+
+    <script type="module" src="/src/search.ts"></script>
+  </body>
+</html>

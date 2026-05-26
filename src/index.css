@@ -1,0 +1,542 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "EB Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Elegant Emerald & Sage palette overrides if needed */
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-300: #86efac;
+  --color-brand-400: #4ade80;
+  --color-brand-50: #effdf4;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-brand-700: #15803d;
+  --color-brand-800: #166534;
+  --color-brand-900: #14532d;
+}
+
+/* Custom transitions and scrollbars */
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  background-color: #fafafb;
+  color: #1f2937;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Customized scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Toast animations */
+.toast-slide-in {
+  animation: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Night theme style support declarations - curated warm heritage culinary journal */
+:root {
+  --app-bg: #e0c398; /* rich warm orange-sand vintage craft paper background */
+  --app-text: #121614; /* absolute crisp dark charcoal text for high-contrast */
+  --card-bg: #f1dfc6; /* vintage mid-sand, zero pure white, monochromatic orange/sand tone */
+  --card-border: #2e251a; /* deep roasted-espresso border tone */
+  --card-text-muted: #614e3b; /* legible warm charcoal/bronze text */
+  --header-bg: #edd6b5;
+  --header-border: #d3ba9a;
+  --outline-bg: #f1dfc6;
+  --outline-fg: #2e251a;
+}
+
+.dark {
+  --app-bg: #1f1911; /* organic dark espresso / roasted coffee bean background */
+  --app-text: #f4ecd8; /* high contrast warm cream text */
+  --card-bg: #2b2217; /* rich dark cocoa card background */
+  --card-border: #ecbc82; /* elegant warm gold/orange offset border */
+  --card-text-muted: #dfc3a7; /* legible soft latte text */
+  --header-bg: #2b2217;
+  --header-border: #423423;
+  --outline-bg: #1f1911;
+  --outline-fg: #f4ecd8;
+}
+
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Custom dark mode class rules overrides */
+.dark body, .dark html {
+  background-color: var(--app-bg) !important;
+  color: var(--app-text) !important;
+}
+
+.dark nav {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+.dark nav a {
+  color: #a89f91 !important;
+}
+
+.dark nav a:hover {
+  color: #ecbc82 !important;
+}
+
+.dark nav a.text-emerald-600 {
+  color: #ecbc82 !important;
+  border-color: #ecbc82 !important;
+}
+
+.dark #mobile-nav-panel {
+  background-color: var(--header-bg) !important;
+  border-color: var(--header-border) !important;
+}
+
+.dark #mobile-nav-panel a {
+  color: var(--app-text) !important;
+}
+
+.dark #mobile-nav-panel a.bg-emerald-50 {
+  background-color: #3d2f1f !important;
+  color: #ecbc82 !important;
+}
+
+/* Unified Palette Overrides for Tailwind classes across both Light and Dark mode */
+.bg-white {
+  background-color: var(--card-bg) !important;
+  color: var(--app-text) !important;
+}
+
+.border-slate-100, .border-slate-200, .border-slate-300, .border-emerald-500, .border-red-200\/50, .border-amber-200\/50, .border-slate-800 {
+  border-color: var(--card-border) !important;
+}
+
+.bg-slate-50, .bg-slate-100, .bg-slate-100\/60, .bg-amber-50\/50, .bg-red-50\/70, .bg-emerald-50\/70, .bg-slate-100\/50, .bg-slate-50\/70, .bg-slate-900\/40, .bg-emerald-950\/20 {
+  background-color: var(--app-bg) !important;
+  color: var(--app-text) !important;
+}
+
+.text-slate-900, .text-slate-850, .text-slate-800, .text-slate-700, .text-slate-600, .text-emerald-800, .text-amber-950, .text-amber-900, .text-gray-900, .text-gray-800, .text-gray-700 {
+  color: var(--app-text) !important;
+}
+
+.text-slate-500, .text-slate-450, .text-slate-400, .text-gray-500, .text-gray-450, .text-gray-400 {
+  color: var(--card-text-muted) !important;
+}
+
+.dark .text-emerald-800, .dark h3.text-emerald-800 {
+  color: var(--app-text) !important;
+  opacity: 0.95;
+}
+
+/* Form inputs, category filter pills, presets and panels button overrides */
+input[type="text"], input[type="email"], textarea, select {
+  background-color: var(--card-bg) !important;
+  color: var(--app-text) !important;
+  border: 1.5px solid var(--card-border) !important;
+}
+
+input:focus, select:focus {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+.dark input:focus, .dark select:focus {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Modals styling overrides in night mode */
+.dark #recipe-modal > div {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  color: var(--app-text) !important;
+}
+
+.dark #recipe-modal .bg-slate-50 {
+  background-color: #0c111d !important;
+  border-color: var(--card-border) !important;
+}
+
+.dark #modal-desc {
+  color: #cbd5e1 !important;
+}
+
+.dark #modal-ingredients-list li {
+  color: #e2e8f0 !important;
+  border-bottom-color: #1e293b !important;
+}
+
+.dark #modal-ingredients-list span.bg-gray-100 {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+.dark #modal-steps-list li {
+  color: #cbd5e1 !important;
+}
+
+.dark #modal-fav-btn {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+
+/* Category index grids & options buttons toggles in night mode */
+.dark #pantry-grid button {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  color: var(--app-text) !important;
+}
+
+.dark #pantry-grid button.bg-emerald-50\/70 {
+  background-color: #3d2f1f50 !important;
+  border-color: #ecbc82 !important;
+}
+
+.dark #pantry-grid h2 span {
+  color: #ecbc82 !important;
+}
+
+.dark #pantry-grid h2 {
+  border-bottom-color: var(--card-border) !important;
+}
+
+/* Dynamic counter and presets card overrides on the home page */
+.dark #clear-pantry-btn {
+  background-color: #7f1d1d !important;
+  color: #fca5a5 !important;
+  border-color: #991b1b !important;
+}
+
+.dark #clear-pantry-btn:hover {
+  background-color: #991b1b !important;
+}
+
+.dark .toast-slide-in {
+  background-color: #1e293b !important;
+  color: var(--app-text) !important;
+}
+
+/* Custom filter-btn styles to override greedy general dark mode rules with high specificity */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+#filters-shelf .filter-btn {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+  color: #334155;
+}
+#filters-shelf .filter-btn:hover {
+  background-color: #f8fafc;
+}
+
+.dark #filters-shelf .filter-btn {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+.dark #filters-shelf .filter-btn:hover {
+  background-color: #334155 !important;
+}
+
+/* Active Peer-Checked Filter States */
+#filter-time:checked + .filter-btn {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+#filter-time-around1h:checked + .filter-btn {
+  background-color: #6366f1 !important;
+  border-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+#filter-time-2h:checked + .filter-btn {
+  background-color: #ec4899 !important;
+  border-color: #ec4899 !important;
+  color: #ffffff !important;
+}
+#filter-airfryer:checked + .filter-btn {
+  background-color: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: #ffffff !important;
+}
+#filter-oven-method:checked + .filter-btn {
+  background-color: #f43f5e !important;
+  border-color: #f43f5e !important;
+  color: #ffffff !important;
+}
+#filter-stovetop:checked + .filter-btn {
+  background-color: #0ea5e9 !important;
+  border-color: #0ea5e9 !important;
+  color: #ffffff !important;
+}
+#filter-slow-cooker:checked + .filter-btn {
+  background-color: #a855f7 !important;
+  border-color: #a855f7 !important;
+  color: #ffffff !important;
+}
+
+/* Dark Mode Active States override */
+.dark #filter-time:checked + .filter-btn {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+.dark #filter-time-around1h:checked + .filter-btn {
+  background-color: #6366f1 !important;
+  border-color: #6366f1 !important;
+  color: #ffffff !important;
+}
+.dark #filter-time-2h:checked + .filter-btn {
+  background-color: #ec4899 !important;
+  border-color: #ec4899 !important;
+  color: #ffffff !important;
+}
+.dark #filter-airfryer:checked + .filter-btn {
+  background-color: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: #ffffff !important;
+}
+.dark #filter-oven-method:checked + .filter-btn {
+  background-color: #f43f5e !important;
+  border-color: #f43f5e !important;
+  color: #ffffff !important;
+}
+.dark #filter-stovetop:checked + .filter-btn {
+  background-color: #0ea5e9 !important;
+  border-color: #0ea5e9 !important;
+  color: #ffffff !important;
+}
+.dark #filter-slow-cooker:checked + .filter-btn {
+  background-color: #a855f7 !important;
+  border-color: #a855f7 !important;
+  color: #ffffff !important;
+}
+
+/* --- Craftsman-Grade Culinary Aesthetics --- */
+
+/* Subtle double borders for retro-classic recipe cards */
+.vintage-double-border {
+  border: 3px double var(--card-border);
+}
+
+/* Beautiful ink-stamped sharp offsets to reject computerized smooth shadows */
+.ink-stamped-card {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: 1rem;
+  box-shadow: 4px 4px 0px 0px var(--card-border);
+}
+
+/* Custom tactile heritage action elements */
+.ink-stamped-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  border: 1.5px solid var(--card-border);
+  border-radius: 0.75rem;
+  background-color: var(--card-bg);
+  color: var(--app-text);
+  box-shadow: 3px 3px 0px 0px var(--card-border);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.ink-stamped-btn:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 4.5px 4.5px 0px 0px var(--card-border);
+}
+
+.ink-stamped-btn:active {
+  transform: translateY(1px);
+  box-shadow: 1.5px 1.5px 0px 0px var(--card-border);
+}
+
+/* Micro-interaction highlight for quick-preset tags: gives them slight playful tilts */
+.organic-preset-tag {
+  transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.organic-preset-tag:hover {
+  transform: scale(1.04) rotate(-1deg);
+}
+
+.organic-preset-tag:nth-child(even):hover {
+  transform: scale(1.04) rotate(1deg);
+}
+
+/* Rotating Carrot decorative badge */
+.spinning-carrot {
+  animation: slow-drift 10s linear infinite;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+@keyframes slow-drift {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Elegant ornamental divider */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--card-border);
+  opacity: 0.35;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  margin: 1.5rem 0;
+  user-select: none;
+}
+
+/* Customized scrollbar with tactile look */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--app-bg);
+  border-left: 1px solid var(--card-border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border: 2.5px solid var(--app-bg);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--card-text-muted);
+}
+
+/* --- Special Custom Typography & Outlines --- */
+
+/* Give text beautiful sharp high-contrast shadows or outlines in both light and dark modes for readability */
+.light-outline-title {
+  font-family: var(--font-display) !important;
+  font-weight: 850 !important;
+  color: var(--app-text) !important;
+  text-shadow: 0.5px 0.5px 0px var(--outline-bg), 1.5px 1.5px 0px var(--outline-fg) !important;
+}
+
+.light-heritage-lead {
+  font-family: var(--font-display) !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: var(--app-text) !important;
+  line-height: 1.52 !important;
+  opacity: 0.95;
+}
+
+.light-greetings-box {
+  background-color: var(--card-bg) !important;
+  border: 1.5px solid var(--card-border) !important;
+  box-shadow: 2px 2px 0px 0px var(--card-border) !important;
+}
+
+.light-greetings-title {
+  color: var(--app-text) !important;
+  font-size: 0.85rem !important;
+  font-weight: 850 !important;
+}
+
+.light-greetings-sub {
+  color: var(--card-text-muted) !important;
+  font-weight: 500 !important;
+}
+
+.light-greetings-tip {
+  color: var(--app-text) !important;
+  font-weight: 550 !important;
+  font-size: 0.775rem !important;
+  border-left: 2.5px solid var(--card-border) !important;
+  padding-left: 0.5rem !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Substitution tip frame */
+.light-substitution-box {
+  background-color: var(--card-bg) !important;
+  border: 1.5px solid var(--card-border) !important;
+  box-shadow: 3px 3px 0px 0px var(--card-border) !important;
+}
+
+.light-substitution-title {
+  color: var(--app-text) !important;
+  font-size: 0.825rem !important;
+  font-weight: 850 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-bottom: 1.5px dashed var(--card-border) !important;
+  padding-bottom: 0.375rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.light-substitution-text {
+  color: var(--app-text) !important;
+  font-weight: 550 !important;
+  font-size: 0.815rem !important;
+  line-height: 1.62 !important;
+}
+
+.light-pantry-banner {
+  background-color: var(--card-bg) !important;
+  border: 1.5px solid var(--card-border) !important;
+  box-shadow: 2.5px 2.5px 0px 0px var(--card-border) !important;
+}
+
+/* Quick Stock Presets header */
+.light-presets-label {
+  color: var(--app-text) !important;
+  font-weight: 850 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.725rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+

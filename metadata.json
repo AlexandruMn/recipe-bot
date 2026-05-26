@@ -1,0 +1,6 @@
+{
+  "name": "Daily Pot",
+  "description": "An interactive vanilla client-side meal planning, pantry manager, and dynamic recipe search assistant using Spoonacular.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

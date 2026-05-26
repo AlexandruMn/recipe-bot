@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Pot - Publish Recipe</title>
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans relative">
+    <!-- Artistic culinary preparation background backdrop -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-22 dark:opacity-12" style="background-image: url('https://images.unsplash.com/photo-1506084868230-bb9d95c24759?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+
+    <div id="navbar" class="relative z-10"></div>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-8 sm:px-6 relative z-10">
+      <!-- Vertical floating borderless background emojis -->
+      <div class="hidden xl:block absolute -left-20 top-[10%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 13s;">🍳</div>
+      <div class="hidden xl:block absolute -right-20 top-[28%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 17s; animation-direction: reverse;">🍅</div>
+      <div class="hidden xl:block absolute -left-24 top-[52%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 15s;">🍲</div>
+      <div class="hidden xl:block absolute -right-24 top-[78%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 21s; animation-direction: reverse;">🍋</div>
+
+      <!-- Title Block -->
+      <div class="mb-8 flex items-start gap-4">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-slate-950 text-white border border-slate-950 dark:text-amber-150 dark:bg-amber-400/15 dark:border-amber-400/20 uppercase tracking-widest font-mono mb-2">
+            <span class="spinning-carrot text-[10px]">🍍</span> Custom Recipe Studio <span class="spinning-carrot text-[10px]" style="animation-duration: 6s; animation-direction: reverse;">🍊</span>
+          </span>
+          <h1 class="font-display font-black text-3xl sm:text-4xl tracking-tight text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            Create & Publish Recipe
+          </h1>
+          <p class="text-xs text-slate-500 dark:text-slate-450 mt-1.5 leading-relaxed">
+            Design your own culinary masterpieces. Published recipes are stored locally in your private pantry database and automatically integrated with our smart pantry matcher.
+          </p>
+        </div>
+      </div>
+
+      <!-- Main Form -->
+      <form id="publish-recipe-form" class="space-y-6" onsubmit="return false;">
+        <!-- General Specifications -->
+        <div class="ink-stamped-card bg-white p-6 sm:p-8 space-y-5">
+          <h2 class="font-display font-black text-lg text-slate-800 dark:text-amber-100 flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span>📝</span> General Specifications
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Recipe Title -->
+            <div>
+              <label for="recipe-title" class="block text-xs font-black uppercase text-slate-500 dark:text-slate-400 font-mono tracking-wider mb-2">Recipe Title <span class="text-red-500">*</span></label>
+              <input 
+                type="text" 
+                id="recipe-title" 
+                placeholder="e.g. Grandma's Secret Garlic Bread" 
+                required
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-205 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs sm:text-sm text-slate-850 placeholder-slate-400 transition"
+              />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Ready in Minutes -->
+              <div>
+                <label for="recipe-ready-time" class="block text-xs font-black uppercase text-slate-500 dark:text-slate-400 font-mono tracking-wider mb-2">Ready In (Minutes) <span class="text-red-500">*</span></label>
+                <input 
+                  type="number" 
+                  id="recipe-ready-time" 
+                  min="1" 
+                  max="1440" 
+                  placeholder="e.g. 25" 
+                  required
+                  class="w-full px-4 py-3 bg-slate-50 border border-slate-205 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs sm:text-sm text-slate-850 placeholder-slate-400 transition"
+                />
+              </div>
+
+              <!-- Servings -->
+              <div>
+                <label for="recipe-servings" class="block text-xs font-black uppercase text-slate-500 dark:text-slate-400 font-mono tracking-wider mb-2">Servings <span class="text-red-500">*</span></label>
+                <input 
+                  type="number" 
+                  id="recipe-servings" 
+                  min="1" 
+                  max="100" 
+                  placeholder="e.g. 4" 
+                  required
+                  class="w-full px-4 py-3 bg-slate-50 border border-slate-205 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs sm:text-sm text-slate-850 placeholder-slate-400 transition"
+                />
+              </div>
+            </div>
+
+            <!-- Image URL -->
+            <div>
+              <label for="recipe-image-url" class="block text-xs font-black uppercase text-slate-500 dark:text-slate-400 font-mono tracking-wider mb-2">Food Thumbnail Image URL</label>
+              <input 
+                type="url" 
+                id="recipe-image-url" 
+                placeholder="e.g. https://images.unsplash.com/photo-1546069901-ba9599a7e63c (or leave blank for premium placeholder)" 
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-205 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs sm:text-sm text-slate-850 placeholder-slate-400 transition"
+              />
+              <p class="text-[10px] text-slate-400 mt-1 leading-normal">
+                Choose any web URL or use Unsplash food image paths. Fallbacks are assigned automatically if empty.
+              </p>
+            </div>
+
+            <!-- Short Summary -->
+            <div>
+              <label for="recipe-summary" class="block text-xs font-black uppercase text-slate-500 dark:text-slate-400 font-mono tracking-wider mb-2">Short Summary / Description <span class="text-red-500">*</span></label>
+              <textarea 
+                id="recipe-summary" 
+                rows="3" 
+                placeholder="A brief description detailing the flavors, origin, or why your recipe is particularly delightful..." 
+                required
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-205 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs sm:text-sm child:text-slate-850 placeholder-slate-400 transition"
+              ></textarea>
+            </div>
+
+            <!-- Cooking Method Tags -->
+            <div>
+              <span class="block text-xs font-black uppercase text-slate-500 dark:text-slate-400 font-mono tracking-wider mb-2.5">Equipped Cooking Methods</span>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer select-none transition">
+                  <input type="checkbox" id="method-airfryer" class="rounded text-slate-905 focus:ring-slate-900 focus:ring-offset-0 h-4 w-4 dark:text-amber-400" />
+                  <span class="text-xs font-bold text-slate-705 dark:text-slate-350">💨 Air Fryer</span>
+                </label>
+                <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer select-none transition">
+                  <input type="checkbox" id="method-oven" class="rounded text-slate-905 focus:ring-slate-900 focus:ring-offset-0 h-4 w-4 dark:text-amber-400" />
+                  <span class="text-xs font-bold text-slate-705 dark:text-slate-350">🔥 Oven</span>
+                </label>
+                <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer select-none transition">
+                  <input type="checkbox" id="method-stovetop" class="rounded text-slate-905 focus:ring-slate-900 focus:ring-offset-0 h-4 w-4 dark:text-amber-400" />
+                  <span class="text-xs font-bold text-slate-705 dark:text-slate-350">🍳 Stovetop</span>
+                </label>
+                <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer select-none transition">
+                  <input type="checkbox" id="method-slowcooker" class="rounded text-slate-905 focus:ring-slate-900 focus:ring-offset-0 h-4 w-4 dark:text-amber-400" />
+                  <span class="text-xs font-bold text-slate-705 dark:text-slate-350">🍲 Slow Cooker</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ingredients Setup -->
+        <div class="ink-stamped-card bg-white p-6 sm:p-8 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h2 class="font-display font-black text-lg text-slate-800 dark:text-amber-100 flex items-center gap-2">
+              <span>🥕</span> Required Ingredients
+            </h2>
+            <span id="ingredients-count" class="font-mono text-xs text-slate-400 font-bold bg-slate-100 px-2.5 py-1 rounded-lg">0 Added</span>
+          </div>
+
+          <!-- Selection from Pantry Block -->
+          <div class="bg-slate-50 dark:bg-slate-900 border border-slate-205 dark:border-slate-800 rounded-2xl p-4 sm:p-5 space-y-4">
+            <div class="space-y-1">
+              <label class="block text-xs font-black uppercase text-slate-500 dark:text-slate-455 font-mono tracking-wider">Select Ingredient from Pantry</label>
+              <p class="text-[10px] text-slate-400 dark:text-slate-500 leading-normal">
+                Click any direct option from our premium food pantry selection. Use search or quick tabs to find items instantly.
+              </p>
+            </div>
+
+            <!-- Search and Selection controls -->
+            <div class="space-y-3">
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">🔍</span>
+                <input 
+                  type="text" 
+                  id="pub-ing-search" 
+                  placeholder="Search pantry ingredients... (e.g. Flour, Eggs, Cheddar)" 
+                  class="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs sm:text-sm text-slate-850 dark:text-slate-100 focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 placeholder-slate-400 transition"
+                />
+              </div>
+
+              <!-- Quick category filters -->
+              <div class="flex gap-1.5 overflow-x-auto pb-1 scrolls-none text-[10px] font-mono">
+                <button type="button" class="pub-cat-filter px-2.5 py-1 rounded-lg bg-slate-900 text-white dark:bg-amber-400 dark:text-slate-950 font-bold tracking-tight whitespace-nowrap cursor-pointer select-none" data-cat="all">All</button>
+                <button type="button" class="pub-cat-filter px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-350 dark:hover:bg-slate-700 whitespace-nowrap cursor-pointer select-none" data-cat="Vegetables">Vegetables</button>
+                <button type="button" class="pub-cat-filter px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-350 dark:hover:bg-slate-700 whitespace-nowrap cursor-pointer select-none" data-cat="Proteins & Meats">Proteins & Meats</button>
+                <button type="button" class="pub-cat-filter px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-350 dark:hover:bg-slate-700 whitespace-nowrap cursor-pointer select-none" data-cat="Dairy & Alternatives">Dairy</button>
+                <button type="button" class="pub-cat-filter px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-350 dark:hover:bg-slate-700 whitespace-nowrap cursor-pointer select-none" data-cat="Pantry & Grains">Grains</button>
+                <button type="button" class="pub-cat-filter px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-350 dark:hover:bg-slate-700 whitespace-nowrap cursor-pointer select-none" data-cat="Herbs, Spices & Oils">Herbs & Oils</button>
+                <button type="button" class="pub-cat-filter px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-350 dark:hover:bg-slate-700 whitespace-nowrap cursor-pointer select-none" data-cat="Fruits & Nuts">Fruits & Nuts</button>
+              </div>
+
+              <!-- Pantry Grid of buttons -->
+              <div id="pub-ing-pantry-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-48 overflow-y-auto pr-1 py-1">
+                <!-- Ingredients dynamic buttons written dynamically -->
+              </div>
+            </div>
+
+            <!-- Sleek configuration drawer when an ingredient is clicked -->
+            <div id="pub-ing-config-container" class="hidden bg-white dark:bg-slate-950 p-3.5 sm:p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 animate-fade-in shadow-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 font-mono tracking-wider">Configure Quantity for:</span>
+                <span id="pub-selected-badge" class="font-display font-black text-xs px-2.5 py-1 bg-slate-900 text-amber-300 dark:bg-amber-400 dark:text-slate-950 rounded-lg flex items-center gap-1.5 shadow-sm">
+                  <!-- Selected Emoji + Label -->
+                </span>
+              </div>
+
+              <!-- Inline amount & unit config inputs -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="pub-ing-amount" class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 font-mono">Amount</label>
+                  <input 
+                    type="number" 
+                    id="pub-ing-amount" 
+                    min="0.01" 
+                    step="0.01" 
+                    value="1" 
+                    class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-semibold focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400"
+                  />
+                </div>
+                <div>
+                  <label for="pub-ing-unit" class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 font-mono">Unit (e.g. piece, cup, g)</label>
+                  <input 
+                    type="text" 
+                    id="pub-ing-unit" 
+                    value="piece" 
+                    placeholder="e.g. piece, cup, g" 
+                    class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-semibold focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400"
+                  />
+                </div>
+              </div>
+
+              <!-- Confirm / Cancel buttons inside tray -->
+              <div class="flex gap-2 justify-end pt-1">
+                <button 
+                  type="button" 
+                  id="pub-ing-cancel-btn" 
+                  class="px-3 py-1.5 text-xs text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-900 font-bold rounded-lg cursor-pointer transition select-none"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="button" 
+                  id="pub-ing-confirm-btn" 
+                  class="ink-stamped-btn px-4 py-1.5 bg-slate-900 text-white hover:bg-slate-950 dark:bg-amber-400 dark:text-slate-950 dark:hover:bg-amber-500 rounded-lg font-bold text-xs flex items-center gap-1 cursor-pointer transition select-none"
+                >
+                  Confirm Required Ingredient
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Added Ingredients List -->
+          <ul id="added-ingredients-list" class="divide-y divide-slate-100 max-h-60 overflow-y-auto pr-1 space-y-1">
+            <!-- Empty Placeholder -->
+            <li id="ing-empty-placeholder" class="py-4 text-center text-xs text-slate-400 italic">
+              No ingredients added yet. Complete pantry selection above to specify.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Instructions Setup -->
+        <div class="ink-stamped-card bg-white p-6 sm:p-8 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h2 class="font-display font-black text-lg text-slate-800 dark:text-amber-100 flex items-center gap-2">
+              <span>📋</span> Preparation Steps
+            </h2>
+            <span id="steps-count" class="font-mono text-xs text-slate-400 font-bold bg-slate-100 px-2.5 py-1 rounded-lg">0 Added</span>
+          </div>
+
+          <!-- Dynamic Instruction Step Input -->
+          <div class="bg-slate-50 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-3">
+            <div>
+              <textarea 
+                id="input-step-text" 
+                rows="2" 
+                placeholder="Describe preparation step details... (e.g. Preheat oven, mix flour and butter, etc.)" 
+                class="w-full px-3.5 py-2.5 bg-white border border-slate-205 rounded-xl text-xs sm:text-sm text-slate-850 focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 placeholder-slate-400 transition"
+              ></textarea>
+            </div>
+
+            <div class="flex justify-end pt-1">
+              <button 
+                type="button" 
+                id="add-step-btn" 
+                class="ink-stamped-btn px-4 py-2 bg-slate-900 hover:bg-slate-950 text-white dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-slate-950 rounded-xl font-bold text-xs flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>➕</span> Add Step
+              </button>
+            </div>
+          </div>
+
+          <!-- Added Steps List -->
+          <ol id="added-steps-list" class="divide-y divide-slate-100 max-h-60 overflow-y-auto pr-1 space-y-1">
+            <!-- Empty Placeholder -->
+            <li id="step-empty-placeholder" class="py-4 text-center text-xs text-slate-400 italic mb-1">
+              No instructions steps specified yet. Add steps starting from Step 1 above.
+            </li>
+          </ol>
+        </div>
+
+        <!-- Publish Trigger -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 justify-between pt-4">
+          <span class="text-xs text-slate-400">
+            <span class="text-red-500">*</span> Represents mandatory fields.
+          </span>
+          <button 
+            type="submit" 
+            id="publish-submit-btn" 
+            class="ink-stamped-btn w-full sm:w-auto px-7 py-3 bg-slate-900 hover:bg-slate-950 text-white dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-slate-950 rounded-xl font-bold text-sm flex items-center justify-center gap-2 cursor-pointer shadow-sm active:scale-[0.99] transition duration-150"
+          >
+            <span>🚀</span> Publish Custom Recipe ➔
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <div id="footer" class="relative z-10"></div>
+
+    <script type="module" src="/src/publish.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Pot - My Recipes Hub</title>
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans relative">
+    <!-- Antique Cookbook / Recipe Notebook background backdrop -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-22 dark:opacity-12" style="background-image: url('https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+
+    <div id="navbar" class="relative z-10"></div>
+
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 py-8 sm:px-6 relative z-10">
+      <!-- Vertical floating borderless background emojis -->
+      <div class="hidden xl:block absolute -left-16 top-[10%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 14s;">🍳</div>
+      <div class="hidden xl:block absolute -right-16 top-[25%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 18s; animation-direction: reverse;">🍇</div>
+      <div class="hidden xl:block absolute -left-20 top-[48%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 16s;">🥞</div>
+      <div class="hidden xl:block absolute -right-20 top-[70%] spinning-carrot text-3xl pointer-events-none select-none" style="animation-duration: 22s; animation-direction: reverse;">🍓</div>
+      <div class="hidden xl:block absolute -left-16 top-[88%] spinning-carrot text-4xl pointer-events-none select-none" style="animation-duration: 19s;">🍍</div>
+      
+      <!-- Heading section -->
+      <div class="mb-8 text-center md:text-left flex flex-col md:flex-row md:items-center md:justify-between gap-4 font-sans">
+        <div class="flex items-center gap-4 text-left">
+          <div>
+            <h1 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight text-slate-850 dark:text-slate-100 flex items-center gap-2">
+              My Recipes & Planner Hub <span class="spinning-carrot text-lg sm:text-xl">🥬</span>
+            </h1>
+            <p class="text-xs text-slate-400 mt-1">
+              Access your custom recipes, check your favorites collection, or map out your cooking days with the meal scheduler.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segmented Control Tabs -->
+      <div class="flex flex-wrap gap-2.5 justify-center md:justify-start border-b border-slate-200 dark:border-slate-800 pb-5 mb-8 font-sans">
+        <button 
+          id="btn-tab-published" 
+          class="px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-150 transform hover:scale-102 cursor-pointer select-none border border-slate-900 bg-slate-900 text-white dark:border-amber-400 dark:bg-amber-400 dark:text-slate-950 shadow-[2px_2px_0px_0px_#0f172a] dark:shadow-[2px_2px_0px_0px_#ecbc82] flex items-center gap-2 active:scale-95"
+          data-tab="published"
+        >
+          <span>🍳</span> My Published 
+          <span id="pub-count-badge" class="px-1.5 py-0.2 bg-slate-800 text-white dark:bg-slate-900/40 text-[10px] rounded font-mono font-bold">0</span>
+        </button>
+
+        <button 
+          id="btn-tab-favorites" 
+          class="px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-150 transform hover:scale-102 cursor-pointer select-none border border-slate-200 text-slate-500 hover:text-slate-850 bg-white dark:bg-slate-900 dark:border-slate-800 dark:text-slate-400 dark:hover:text-amber-100 flex items-center gap-2 active:scale-95"
+          data-tab="favorites"
+        >
+          <span>⭐</span> Saved Favorites 
+          <span id="fav-count-badge" class="px-1.5 py-0.2 bg-slate-100 text-slate-600 dark:bg-slate-950 text-[10px] rounded font-mono font-bold">0</span>
+        </button>
+
+        <button 
+          id="btn-tab-calendar" 
+          class="px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-150 transform hover:scale-102 cursor-pointer select-none border border-slate-200 text-slate-500 hover:text-slate-850 bg-white dark:bg-slate-900 dark:border-slate-800 dark:text-slate-400 dark:hover:text-amber-100 flex items-center gap-2 active:scale-95"
+          data-tab="calendar"
+        >
+          <span>📅</span> Meal Calendar
+        </button>
+      </div>
+
+      <!-- TAB CONTENT 1: MY PUBLISHED -->
+      <section id="content-tab-published" class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 p-4 rounded-xl mb-4">
+          <p class="text-xs text-slate-450 leading-relaxed font-sans max-w-xl">
+            Custom culinary collections designed and authored by you. These are saved in your local workspace memory and integrated into search results.
+          </p>
+          <a href="publish.html" class="px-4 py-2 bg-slate-900 hover:bg-slate-950 text-white dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-slate-950 text-xs font-black rounded-xl transition duration-150 text-center shrink-0 cursor-pointer shadow-3xs flex items-center justify-center gap-1.5">
+            <span>➕</span> Publish New Recipe
+          </a>
+        </div>
+
+        <!-- Custom empty state -->
+        <div id="published-empty" class="hidden flex flex-col items-center justify-center text-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm max-w-4xl mx-auto w-full">
+          <span class="text-4xl mb-4 select-none">🍳</span>
+          <h3 class="font-display font-black text-lg text-slate-800 dark:text-amber-100">No published recipes found</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-450 max-w-md px-6 mt-1.5 leading-relaxed">
+            Unleash your culinary creativity! Design and share original dishes. Authorship items can even be pinned to the meal schedule.
+          </p>
+          <div class="mt-6">
+            <a href="publish.html" class="px-5 py-3 bg-slate-900 hover:bg-slate-950 text-white dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-slate-950 text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-2">
+              <span>➕</span> Publish Your First Recipe
+            </a>
+          </div>
+        </div>
+
+        <div id="published-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Dynamically filled with user posted recipes -->
+        </div>
+      </section>
+
+      <!-- TAB CONTENT 2: FAVORITES -->
+      <section id="content-tab-favorites" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 p-4 rounded-xl mb-4">
+          <p class="text-xs text-slate-450 leading-relaxed font-sans">
+            Mark favorite recipes in the Search page to save them here for fast bookmarking. All items are cached in the browser for offline access.
+          </p>
+          <button 
+            id="clear-favorites-btn" 
+            class="px-4 py-2 text-xs font-bold text-red-500 hover:text-red-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-sm transition rounded-xl cursor-pointer hidden shrink-0"
+          >
+            Clear All Saved Favorites
+          </button>
+        </div>
+
+        <!-- Empty State -->
+        <div id="favorites-empty" class="hidden flex flex-col items-center justify-center text-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm max-w-4xl mx-auto w-full">
+          <span class="text-4xl mb-4 select-none">⭐</span>
+          <h3 class="font-display font-black text-lg text-slate-800 dark:text-amber-100">No favorite recipes yet</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-450 max-w-sm px-6 mt-1.5 leading-relaxed">
+            Explore quality recommendations based on pantry items and mark them as favorites to access here instantly!
+          </p>
+          <div class="mt-6 flex flex-wrap gap-2.5 justify-center">
+            <a href="search.html" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-950 text-white dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-slate-950 text-xs font-bold rounded-xl transition cursor-pointer">
+              Search Matching Recipes
+            </a>
+            <a href="index.html" class="px-5 py-2.5 bg-white border border-slate-250 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-350 dark:hover:bg-slate-800 text-slate-705 text-xs font-bold rounded-xl transition cursor-pointer">
+              Manage Stock Pantry
+            </a>
+          </div>
+        </div>
+
+        <div id="favorites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Dynamically filled with favorited items -->
+        </div>
+      </section>
+
+      <!-- TAB CONTENT 3: MEAL CALENDAR -->
+      <section id="content-tab-calendar" class="hidden space-y-6 animate-fade-in">
+        <div class="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 p-4 rounded-xl mb-4">
+          <p class="text-xs text-slate-450 leading-relaxed font-sans">
+            Organize breakfast, lunch, and dinner. Schedule any favorite or custom-defined recipe to coordinate a perfect balanced weekly menu.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Calendar Scheduler Controls (left) -->
+          <fieldset class="lg:col-span-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs space-y-6">
+            <legend class="text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest font-mono flex items-center gap-2 mb-2 px-1">
+              <span>📅</span> Schedule a Meal
+            </legend>
+
+            <form id="schedule-form" class="space-y-4 font-sans text-xs">
+              <!-- Select Date -->
+              <div>
+                <label for="schedule-date" class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Target Date</label>
+                <input 
+                  type="date" 
+                  id="schedule-date" 
+                  class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs text-slate-800 transition"
+                  required
+                />
+              </div>
+
+              <!-- Select Meal Type -->
+              <div>
+                <label for="schedule-meal-type" class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Meal Type</label>
+                <select 
+                  id="schedule-meal-type" 
+                  class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs text-slate-800 transition cursor-pointer"
+                  required
+                >
+                  <option value="breakfast">🥞 Breakfast</option>
+                  <option value="lunch">🌯 Lunch</option>
+                  <option value="dinner">🍝 Dinner</option>
+                </select>
+              </div>
+
+              <!-- Recipe Picker -->
+              <div>
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Select Recipe</label>
+                
+                <!-- Tab toggles for Selection Mode -->
+                <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 dark:bg-slate-950 rounded-lg text-[10px] sm:text-xs font-bold mb-3">
+                  <button type="button" id="tab-fav-recipes" class="py-1.5 rounded-md text-center bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 shadow-3xs cursor-pointer font-bold select-none">
+                    From Pantry/Favs
+                  </button>
+                  <button type="button" id="tab-custom-recipe" class="py-1.5 rounded-md text-center text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-amber-100 transition cursor-pointer font-medium select-none">
+                    Write Title Directly
+                  </button>
+                </div>
+
+                <!-- Option A: Dropdown of Favorited Recipes -->
+                <div id="recipe-favorites-select-box" class="block font-sans text-xs">
+                  <select 
+                    id="favorites-dropdown"
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs text-slate-800 transition cursor-pointer"
+                  >
+                    <option value="" disabled selected>-- Choose from recipes --</option>
+                    <!-- Populated from favorites in localStorage -->
+                  </select>
+                  <p class="text-[9px] text-slate-400 dark:text-slate-550 mt-1">Select from either favorited Spoonacular cards or your published recipes list above.</p>
+                </div>
+
+                <!-- Option B: Custom text fields -->
+                <div id="recipe-custom-inputs-box" class="hidden space-y-3 font-sans text-xs animate-fade-in">
+                  <input 
+                    type="text" 
+                    id="custom-recipe-title" 
+                    placeholder="Enter manual title (e.g. Scrambled Eggs)"
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs text-slate-800 transition"
+                  />
+                  <input 
+                    type="text" 
+                    id="custom-recipe-id" 
+                    placeholder="Reference Code (optional)"
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 rounded-xl focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-slate-900 dark:focus:ring-amber-400 text-xs font-mono text-slate-800 transition"
+                  />
+                </div>
+              </div>
+
+              <!-- Submit Calendar trigger -->
+              <button 
+                type="submit" 
+                class="w-full py-3 bg-slate-900 hover:bg-slate-950 active:bg-slate-950 text-white dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-slate-950 font-black text-xs rounded-xl transition cursor-pointer shadow-3xs"
+              >
+                Add To Plan Board
+              </button>
+            </form>
+          </fieldset>
+
+          <!-- Calendar Scheduler Calendar View (right) -->
+          <div class="lg:col-span-8 space-y-6">
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs">
+              
+              <!-- Month selection navigation bar -->
+              <div class="flex items-center justify-between mb-5">
+                <h2 class="font-display font-black text-slate-850 dark:text-amber-100 text-base sm:text-lg" id="calendar-month-year">
+                  Month Year
+                </h2>
+                <div class="flex gap-1.5">
+                  <button 
+                    id="cal-prev-month" 
+                    class="p-2 border border-slate-200 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-950 dark:text-slate-350 rounded-xl transition cursor-pointer select-none"
+                    aria-label="Previous month"
+                  >
+                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                  </button>
+                  <button 
+                    id="cal-today-btn" 
+                    class="px-3.5 py-1.5 border border-slate-200 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-950 dark:text-slate-300 text-xs font-bold rounded-xl transition cursor-pointer select-none"
+                  >
+                    Today
+                  </button>
+                  <button 
+                    id="cal-next-month" 
+                    class="p-2 border border-slate-200 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-950 dark:text-slate-350 rounded-xl transition cursor-pointer select-none"
+                    aria-label="Next month"
+                  >
+                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Calendar Weekday grid heads -->
+              <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[9px] font-bold tracking-widest text-slate-400 dark:text-slate-500 mb-2 uppercase select-none">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+              </div>
+
+              <!-- Calendar Grid container cells -->
+              <div id="calendar-grid-cells" class="grid grid-cols-7 gap-1.5 sm:gap-2 min-h-96">
+                <!-- Rendered dynamically of day dates -->
+              </div>
+            </div>
+
+            <!-- Custom Selected Date Agenda Detail Panel -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs hidden" id="agenda-manager-card">
+              <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-850 pb-3 mb-4">
+                <h3 class="font-display font-extrabold text-slate-850 dark:text-amber-100 text-sm sm:text-base">
+                  Scheduled Meals for: <span id="agenda-selected-date-label" class="text-slate-950 dark:text-amber-350 font-mono font-bold ml-1">2026-05-22</span>
+                </h3>
+                <button id="agenda-close-btn" class="text-xs font-bold text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-350 cursor-pointer p-1">
+                  ✕ Close
+                </button>
+              </div>
+
+              <div id="agenda-list" class="space-y-3.5">
+                <!-- Dynamically loaded agenda rows -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal dialogue Drawer of details in My Recipes Hub -->
+    <div id="recipe-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 transition backdrop-blur-xs">
+      <div class="bg-white dark:bg-slate-905 border border-slate-200 dark:border-slate-850 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto flex flex-col shadow-2xl relative font-sans text-xs">
+        <!-- Header Image area -->
+        <div class="relative h-60 w-full shrink-0">
+          <img id="modal-img" src="" alt="Recipe image" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent"></div>
+          <button id="modal-close-btn" class="absolute top-4 right-4 bg-slate-950/60 text-white rounded-full p-2.5 hover:bg-slate-900 transition cursor-pointer flex items-center justify-center w-9 h-9 border border-white/10" aria-label="Close dialog">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+          
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <h2 id="modal-title" class="font-display font-extrabold text-xl sm:text-2xl leading-tight"></h2>
+            <!-- Ready time, Servings -->
+            <div class="flex gap-4 text-xs font-bold text-amber-205 mt-2">
+              <span id="modal-prep" class="flex items-center gap-1">⏰ Under 30m</span>
+              <span id="modal-servings" class="flex items-center gap-1">🥣 4 Servings</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrollable details details -->
+        <div class="p-6 overflow-y-auto">
+          <!-- Substitution alerts block (hidden by default) -->
+          <div id="modal-substitutes-banner" class="hidden bg-amber-50 border border-amber-300 text-amber-950 dark:bg-amber-950/20 dark:border-amber-900/50 dark:text-amber-200 rounded-xl p-4 text-xs leading-relaxed space-y-1.5 mb-6 shadow-3xs">
+            <div class="font-bold flex items-center gap-1.5">
+              <span>⚠️ Quality-Reducing Substitutions Triggered:</span>
+            </div>
+            <ul id="modal-substitutes-list" class="list-disc pl-4 space-y-1 font-medium"></ul>
+          </div>
+
+          <!-- Recipe summary and source link -->
+          <div class="text-xs text-slate-500 dark:text-slate-400 mb-6 leading-relaxed" id="modal-desc"></div>
+
+          <!-- Two Column Lists -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+            <!-- Ingredients -->
+            <div>
+              <h3 class="font-display font-black text-slate-850 dark:text-amber-150 mb-3 text-xs uppercase tracking-wider text-slate-700 dark:text-slate-400">Ingredients Needed</h3>
+              <ul id="modal-ingredients-list" class="space-y-2 text-xs text-slate-600 dark:text-slate-350 list-none font-medium">
+                <!-- list of extended ingredients -->
+              </ul>
+            </div>
+
+            <!-- Steps Instructions -->
+            <div>
+              <h3 class="font-display font-black text-slate-850 dark:text-amber-150 mb-3 text-xs uppercase tracking-wider text-slate-700 dark:text-slate-400">Preparation Steps</h3>
+              <ol id="modal-steps-list" class="space-y-3.5 text-xs text-slate-600 dark:text-slate-350 list-decimal pl-4 font-medium leading-relaxed font-sans">
+                <!-- steps -->
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer tools -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-850 flex items-center justify-between bg-slate-50 dark:bg-slate-900 rounded-b-2xl">
+          <a id="modal-view-original" href="#" target="_blank" class="text-xs text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-amber-100 font-bold underline transition select-none">
+            View Source Original website
+          </a>
+          <button id="modal-fav-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-red-200 bg-red-50 text-red-700 hover:bg-red-105 hover:text-red-850 text-xs font-bold transition cursor-pointer">
+            <svg class="w-4 h-4 fill-red-500 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            Remove from Saved Favorites
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer" class="relative z-10"></div>
+
+    <script type="module" src="/src/favorites.ts"></script>
+  </body>
+</html>
